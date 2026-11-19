@@ -9,7 +9,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:5173. Start the backend on port 8080 to see **Spring Boot backend connected.** The retry button checks connectivity again after starting the backend.
+Open http://127.0.0.1:5173. Start MongoDB and the backend on port 8080 to see **Spring Boot backend connected.** Use **Check connection** to retry the health check.
 
 ## Files
 
