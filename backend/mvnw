@@ -1,0 +1,22 @@
+#!/bin/sh
+# Project-local Maven launcher for Linux/macOS; requires curl and tar.
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+VERSION=3.9.11
+MAVEN_HOME="$ROOT/.tools/apache-maven-$VERSION"
+if [ ! -x "$MAVEN_HOME/bin/mvn" ]; then
+  mkdir -p "$ROOT/.tools"
+  URL="https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/$VERSION/apache-maven-$VERSION-bin.tar.gz"
+  ARCHIVE="$ROOT/.tools/maven.tar.gz"
+  curl -fsSL "$URL" -o "$ARCHIVE"
+  EXPECTED=$(curl -fsSL "$URL.sha512" | awk '{print $1}')
+  if command -v sha512sum >/dev/null 2>&1; then
+    ACTUAL=$(sha512sum "$ARCHIVE" | awk '{print $1}')
+  else
+    ACTUAL=$(shasum -a 512 "$ARCHIVE" | awk '{print $1}')
+  fi
+  [ "$ACTUAL" = "$EXPECTED" ] || { echo 'Maven checksum mismatch' >&2; exit 1; }
+  tar -xzf "$ARCHIVE" -C "$ROOT/.tools"
+  rm "$ARCHIVE"
+fi
+exec "$MAVEN_HOME/bin/mvn" "$@"
