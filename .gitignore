@@ -1,0 +1,16 @@
+node_modules/
+dist/
+target/
+.tools/
+backend/data/
+.env
+.env.*
+!.env.example
+*.log
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+# Original local planning reference; current project scope lives in docs/.
+ElectroStock_Project_Plan.docx
