@@ -8,8 +8,65 @@ Electronics inventory and procurement management university project.
 | --- | --- | --- |
 | 1 | Dilukshan / `gitcivilian` | Spring Boot foundation, build tooling, repository documentation |
 | 2 | Ganamoorthy / `Ganamoorthy` | React/Vite foundation, landing page, backend connection check |
+| 3 | Name / GitHub to be added | Supplier and procurement module; work planned |
 
 Member 3's implementation has not started. Authentication, inventory, databases, stock movements, and procurement are future milestones.
+
+## Separate tasks for the three members
+
+Each member owns the Spring Boot APIs, React screens, tests, and documentation for their assigned features. Checked items below are completed setup; unchecked items are planned development.
+
+### Member 1 — Dilukshan (`gitcivilian`)
+
+**Ownership: authentication, users/roles, and application integration.**
+
+- [x] Set up the Spring Boot backend, Maven launchers, and health endpoint test.
+- [x] Initialize Git rules, shared setup documentation, and backend CI.
+- [ ] Implement user persistence and secure password hashing.
+- [ ] Implement login/logout and server-side authorization with Spring Security.
+- [ ] Define administrator, storekeeper, requester, and procurement-officer permissions.
+- [ ] Build login, profile, and administrator user/role management screens.
+- [ ] Integrate protected navigation and shared access/error states.
+- [ ] Test authentication and restricted endpoints.
+- [ ] Coordinate CI, deployment configuration, and final setup documentation.
+
+### Member 2 — Ganamoorthy (`Ganamoorthy`)
+
+**Ownership: component catalog, stock management, and inventory reporting.**
+
+- [x] Set up React/Vite, the landing page, and basic responsive styles.
+- [x] Add the backend connection check, frontend build instructions, and frontend CI.
+- [ ] Implement component/category records and create, edit, search, filter, and deactivate workflows.
+- [ ] Add component specifications, units, storage locations, and reorder thresholds.
+- [ ] Implement stock receipts, issues, returns, and authorized adjustments.
+- [ ] Update stock balances and the transaction ledger atomically; prevent insufficient-stock issues.
+- [ ] Build stock movement forms and auditable history screens.
+- [ ] Implement low-stock indicators, inventory dashboard data, and filtered CSV reports.
+- [ ] Test validation, stock rollback, and concurrent stock updates.
+- [ ] Document the inventory schema and stock-accounting rules.
+
+### Member 3 — name and GitHub account to be added
+
+**Ownership: suppliers, procurement, and goods receipts. All tasks are planned.**
+
+- [ ] Set up the supplier/procurement module structure and agree its API contracts.
+- [ ] Implement supplier records and create, edit, search, and deactivate screens.
+- [ ] Implement purchase requests with requested items and justification.
+- [ ] Add authorized approval/rejection and request-status tracking.
+- [ ] Create purchase orders from approved requests with supplier and order-line details.
+- [ ] Implement verified goods receipts and partial-delivery tracking.
+- [ ] Reuse Member 2's stock service so verified deliveries update inventory exactly once.
+- [ ] Build procurement status views, dashboard data, and filtered reports.
+- [ ] Test invalid status transitions, over-deliveries, and duplicate receipt prevention.
+- [ ] Document procurement workflows and prepare the request-to-delivery demonstration.
+
+### Shared responsibilities and handoffs
+
+- All three members agree on the ER diagram, API conventions, and PostgreSQL migration plan.
+- Member 1 provides user identity and permission rules to Members 2 and 3.
+- Members 2 and 3 agree on the stock receipt service and delivery references before goods-receipt implementation.
+- Review rotation: Member 1 reviews Member 2, Member 2 reviews Member 3, and Member 3 reviews Member 1.
+- Everyone maintains meeting logs, tests the integrated application, and contributes to the final report and viva demonstration.
 
 ## Included now
 
