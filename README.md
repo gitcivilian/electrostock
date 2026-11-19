@@ -10,7 +10,7 @@ Electronics inventory and procurement management university project.
 | 2 | Ganamoorthy / `Ganamoorthy` | React/Vite foundation, landing page, backend connection check |
 | 3 | Name / GitHub to be added | Supplier and procurement module; work planned |
 
-Member 3's implementation has not started. Authentication, inventory, databases, stock movements, and procurement are future milestones.
+Member 3's implementation has not started. Local MongoDB is configured; authentication, inventory, stock movements, and procurement remain future milestones.
 
 ## Separate tasks for the three members
 
@@ -62,7 +62,7 @@ Each member owns the Spring Boot APIs, React screens, tests, and documentation f
 
 ### Shared responsibilities and handoffs
 
-- All three members agree on the ER diagram, API conventions, and PostgreSQL migration plan.
+- All three members agree on the MongoDB document model, indexes, and API conventions.
 - Member 1 provides user identity and permission rules to Members 2 and 3.
 - Members 2 and 3 agree on the stock receipt service and delivery references before goods-receipt implementation.
 - Review rotation: Member 1 reviews Member 2, Member 2 reviews Member 3, and Member 3 reviews Member 1.
@@ -71,6 +71,7 @@ Each member owns the Spring Boot APIs, React screens, tests, and documentation f
 ## Included now
 
 - Java 21 + Spring Boot 3.5.7 application with a health endpoint.
+- Local MongoDB 8.0 with an `electrostock` database and a dedicated application user.
 - React 19 + Vite 7 landing page showing backend connectivity.
 - Project-local Maven launchers and npm lockfile.
 - Git ignore/formatting rules, setup documentation, and GitHub Actions builds.
@@ -78,7 +79,16 @@ Each member owns the Spring Boot APIs, React screens, tests, and documentation f
 
 ## Run on Windows
 
-Install JDK 21 and Node.js 22.12+ with npm. Git is required for collaboration. Maven downloads automatically on first use; internet access is needed for dependencies.
+Install JDK 21, Node.js 22.12+ with npm, and Docker Desktop with Linux containers. Git is required for collaboration. Maven downloads automatically on first use; internet access is needed for dependencies.
+
+**Database — from the repository root**
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\initialize-local-env.ps1
+docker compose up -d --wait
+```
+
+The setup script generates two local passwords in the Git-ignored `.env` file without printing them. Compose initializes `electrostock` and gives `electrostock_app` read/write access only to that database. Keep `.env` private. Run `docker compose stop` to stop MongoDB without losing data.
 
 Open two PowerShell terminals from the repository root.
 
@@ -101,7 +111,7 @@ Open **http://127.0.0.1:5173**. Backend health: **http://127.0.0.1:8080/actuator
 
 Vite forwards `/actuator` and future `/api` requests to Spring Boot on port 8080. Both servers bind to loopback for local development.
 
-On Linux/macOS use `sh ./mvnw spring-boot:run` inside `backend`. The launcher requires `curl`, `tar`, and `sha512sum` or `shasum`. Maven 3.9.11 is downloaded to ignored `backend/.tools/` and checksum-verified.
+On Linux/macOS, copy `.env.example` to `.env` and replace both placeholders with different random hex passwords (for example, generate each with `openssl rand -hex 32`). Use the same Compose command, then run `sh ./mvnw spring-boot:run` inside `backend`. The launcher requires `curl`, `tar`, and `sha512sum` or `shasum`. Maven 3.9.11 is downloaded to ignored `backend/.tools/` and checksum-verified.
 
 ## Verify
 
@@ -113,13 +123,14 @@ On Linux/macOS use `sh ./mvnw spring-boot:run` inside `backend`. The launcher re
 npm run build
 ```
 
-The backend test checks application startup and the health endpoint. The frontend build generates `frontend/dist/`. Static deployment will need a reverse proxy for backend requests; Vite's development proxy is not included in the build.
+The backend test checks application startup and the health endpoint without requiring MongoDB in CI. To verify the live database connection, start MongoDB and Spring Boot, then open the health URL above; expect `{"status":"UP"}`. The frontend build generates `frontend/dist/`. Static deployment will need a reverse proxy for backend requests; Vite's development proxy is not included in the build.
 
 ## Structure
 
 ```text
 backend/       Spring Boot application, health test, Maven launchers
 frontend/      React landing page, shared fetch helper, Vite configuration
+infra/mongo/   MongoDB initialization for local development
 docs/          Scope, member ownership, endpoint notes, meeting-log template
 .github/       CI build workflow
 ```
