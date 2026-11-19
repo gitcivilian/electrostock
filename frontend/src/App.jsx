@@ -27,7 +27,7 @@ export default function App() {
         <p role="status" className={`status ${status}`}>
           {status === 'checking' && 'Checking Spring Boot connection…'}
           {status === 'connected' && 'Spring Boot backend connected.'}
-          {status === 'unavailable' && 'Backend unavailable. Start Spring Boot on port 8080.'}
+          {status === 'unavailable' && 'Health check failed. Make sure Spring Boot and MongoDB are running.'}
         </p>
         <button type="button" onClick={() => setRevision(value => value + 1)} disabled={status === 'checking'}>
           Check connection
