@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/electrostock_test?serverSelectionTimeoutMS=500
+      auto-index-creation: false
+management:
+  health:
+    mongo:
+      enabled: false

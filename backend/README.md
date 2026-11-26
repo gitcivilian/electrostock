@@ -2,9 +2,11 @@
 
 Setup owner: **Dilukshan (`gitcivilian`)**.
 
-This is a Java 21 / Spring Boot 3.5.7 scaffold with Spring Web and Actuator. Business modules and database integration are future work.
+This is a Java 21 / Spring Boot 3.5.7 application with Spring Web, Actuator, Validation, and Spring Data MongoDB.
 
 ## Run
+
+Set `MONGODB_URI` (either as an environment variable or in a root `.env` file copied from `../.env.example`), then run Spring Boot from `backend/`:
 
 ```powershell
 .\mvnw.cmd spring-boot:run
@@ -23,6 +25,10 @@ Health: `GET http://127.0.0.1:8080/actuator/health` returns `{"status":"UP"}`.
 java -jar target/electrostock-0.0.1-SNAPSHOT.jar
 ```
 
-`ApplicationHealthTest` verifies application startup and the health endpoint. The server defaults to `127.0.0.1:8080`; override with `SERVER_ADDRESS` / `SERVER_PORT` environment variables when needed. If changing the port, update the frontend proxy.
+`ApplicationHealthTest` and the catalog unit/controller tests run without requiring a live MongoDB server. When the app runs normally, MongoDB contributes to `/actuator/health`. The server defaults to `127.0.0.1:8080`; override with `SERVER_ADDRESS` / `SERVER_PORT` environment variables when needed. If changing the port, update the frontend proxy.
 
-Add domain controllers/services and PostgreSQL persistence in later tasks. Keep server credentials in environment variables.
+## MongoDB configuration
+
+- Default fallback URI: `mongodb://127.0.0.1:27017/electrostock?serverSelectionTimeoutMS=3000`.
+- Once your MongoDB database (local or MongoDB Atlas) is created, set `MONGODB_URI` in `../.env` or in your environment/secret store. No code changes are required.
+- Never commit `.env` or real database credentials to Git.

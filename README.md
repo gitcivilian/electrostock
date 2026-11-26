@@ -36,8 +36,8 @@ Each member owns the Spring Boot APIs, React screens, tests, and documentation f
 
 - [x] Set up React/Vite, the landing page, and basic responsive styles.
 - [x] Add the backend connection check, frontend build instructions, and frontend CI.
-- [ ] Implement component/category records and create, edit, search, filter, and deactivate workflows.
-- [ ] Add component specifications, units, storage locations, and reorder thresholds.
+- [x] Implement component/category records and create, edit, search, filter, and deactivate workflows.
+- [x] Add component specifications, units, storage locations, and reorder thresholds.
 - [ ] Implement stock receipts, issues, returns, and authorized adjustments.
 - [ ] Update stock balances and the transaction ledger atomically; prevent insufficient-stock issues.
 - [ ] Build stock movement forms and auditable history screens.
